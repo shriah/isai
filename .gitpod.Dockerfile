@@ -7,5 +7,6 @@ ENV PATH="$FLYCTL_INSTALL/bin:$PATH"
 
 # Install GitHub CLI
 RUN brew install gh
+RUN brew install nvm
 RUN nvm install 20
 RUN nvm run 20
