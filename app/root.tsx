@@ -10,8 +10,10 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
-import { getUser } from "~/session.server";
+import { ThemeProvider } from "@/components/theme-provider";
+import * as sessionServer from "~/session.server";
 import stylesheet from "~/tailwind.css";
+import { ModeToggle } from "@/components/mode-toggle";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
@@ -19,7 +21,7 @@ export const links: LinksFunction = () => [
 ];
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  return json({ user: await getUser(request) });
+  return json({ user: await sessionServer.getUser(request) });
 };
 
 export default function App() {
@@ -32,7 +34,10 @@ export default function App() {
         <Links />
       </head>
       <body className="h-full">
-        <Outlet />
+        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+          <ModeToggle />
+          <Outlet />
+        </ThemeProvider>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

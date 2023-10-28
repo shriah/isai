@@ -44,6 +44,7 @@ tasks:
   - init: npm install
     command: |
       gp await-port 5432
+      nvm use 20
       npm run setup
       npm run build
       npm run dev
